@@ -26,4 +26,3 @@ def test_update_size_service(client, create_size, size_uri, size):
     pytest.assume(returned_size["_id"] == create_size.json["_id"])
     pytest.assume(returned_size["name"] == size["name"])
     pytest.assume(returned_size["price"] == size["price"])
-
