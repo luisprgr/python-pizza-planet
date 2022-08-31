@@ -14,9 +14,9 @@ def create_size():
     return jsonify(response), status_code
 
 
-@size.route('/', methods=PUT)
-def update_size():
-    size, error = SizeController.update(request.json)
+@size.route('/<_id>', methods=PUT)
+def update_size(_id:int):
+    size, error = SizeController.update({"_id":_id}|request.json)
     response = size if not error else {'error': error}
     status_code = 200 if not error else 400
     return jsonify(response), status_code
