@@ -21,7 +21,7 @@ jobs:
         uses: actions/cache@v3
         with:
           path : venv
-          key: CI-pizza-planet-${{hashFiles('requirements.txt')}}
+          key: CI-Pizza-Planet-Ubuntu-22.04-${{hashFiles('requirements.txt')}}
       
       - name: Creating virtual environment 
         if: steps.venv-cache.outputs.cache-hit != true
@@ -43,7 +43,7 @@ jobs:
         uses: actions/cache@v3
         with:
           path : venv
-          key: CI-pizza-planet-${{hashFiles('requirements.txt')}}
+          key: CI-Pizza-Planet-Ubuntu-22.04-${{hashFiles('requirements.txt')}}
       
       - name: Run linters
         run: source venv/bin/activate && flake8 app/ manage.py
@@ -60,7 +60,7 @@ jobs:
         uses: actions/cache@v3
         with:
           path : venv
-          key: CI-pizza-planet-${{hashFiles('requirements.txt')}}
+          key: CI-Pizza-Planet-Ubuntu-22.04-${{hashFiles('requirements.txt')}}
       
       - name: Run tests
         run: source venv/bin/activate && pytest -v app/test/
