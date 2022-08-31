@@ -16,3 +16,14 @@ def test_create_size_service(client, size_uri, size):
     pytest.assume(returned_size["_id"])
     pytest.assume(returned_size["name"] == size["name"])
     pytest.assume(returned_size["price"] == size["price"])
+
+
+def test_update_size_service(client, create_size, size_uri, size):
+    size_id = create_size.json["_id"]
+    response = client.put(f'{size_uri}{size_id}', json=size)
+    pytest.assume(response.status.startswith("200"))
+    returned_size = response.json
+    pytest.assume(returned_size["_id"] == create_size.json["_id"])
+    pytest.assume(returned_size["name"] == size["name"])
+    pytest.assume(returned_size["price"] == size["price"])
+
