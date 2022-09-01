@@ -1,0 +1,19 @@
+name: Post Coverage Comment
+
+on:
+  workflow_run:
+    workflows: ["Pizza Planet CI"]
+    types:
+      - completed
+
+jobs:
+  Post-coverage-comment:
+    runs-on: ubuntu-22.04
+    if: github.event.workflow_run.event == 'pull_request' && github.event.workflow_run.conclusion == 'success'
+    steps:
+      - name: Post coverage comment
+        uses: ewjoachim/python-coverage-comment-action@v3
+        with:
+          GITHUB_TOKEN: ${{ github.token }}
+          GITHUB_PR_RUN_ID: ${{ github.event.workflow_run.id }}
+          COMMENT_ARTIFACT_NAME: coverage-comment
