@@ -27,7 +27,9 @@ def client_data():
 
 
 @pytest.fixture
-def order(create_ingredients, create_beverages, create_size, client_data) -> dict:
+def order(
+    create_ingredients, create_beverages, create_size, client_data
+) -> dict:
     ingredients = [ingredient.get('_id') for ingredient in create_ingredients]
     beverages = [beverage.get('_id') for beverage in create_beverages]
     size_id = create_size.get('_id')
@@ -40,7 +42,9 @@ def order(create_ingredients, create_beverages, create_size, client_data) -> dic
 
 
 @pytest.fixture
-def create_orders(client, order_uri, create_ingredients, create_beverages, create_sizes) -> list:
+def create_orders(
+    client, order_uri, create_ingredients, create_beverages, create_sizes
+) -> list:
     ingredients = [ingredient.get('_id') for ingredient in create_ingredients]
     beverages = [beverage.get('_id') for beverage in create_beverages]
     sizes = [size.get('_id') for size in create_sizes]
