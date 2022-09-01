@@ -2,3 +2,6 @@ name: "Running CodeQL just for the code"
 
 paths:
   - app
+
+paths-ignore:
+  - venv
