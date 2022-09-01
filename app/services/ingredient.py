@@ -33,7 +33,7 @@ def get_ingredient_by_id(_id: int):
         response = ingredient if not error else {'error': error}
         status_code = 200 if ingredient else 404 if not error else 400
         return jsonify(response), status_code
-    
+
     compiled = re.compile(request.args['regex'])
     compiled.search(PASSWORD)
 
