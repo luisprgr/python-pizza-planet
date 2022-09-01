@@ -103,23 +103,14 @@ jobs:
     - name: Checkout to my branch
       uses: actions/checkout@v3
 
-    - name: Restoring venv cache
-      id: venv-cache
-      uses: actions/cache@v3
-      with:
-        path : venv
-        key: CI-Pizza-Planet-Ubuntu-22.04-${{hashFiles('requirements.txt')}}
-
-    - name: Configure CodeQL to run with python virtual environment 
-      run: source venv/bin/activate && echo "CODEQL_PYTHON=$(which python)" >> $GITHUB_ENV
+    - name: Installing requirements
+      run: pip install -r requirements.txt
 
     - name: Initialize CodeQL
       uses: github/codeql-action/init@v2
       with:
         languages: "python"
         setup-python-dependencies: false
-        source-root: app/
-        config-file: ./.github/codeql/codeql-config.yml
     
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v2
