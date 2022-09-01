@@ -5,12 +5,12 @@ updates:
     directory: "/"
     schedule:
       interval: "daily"
-      time: "22:49"
+      time: "22:55"
       timezone: "America/Guayaquil"
 
   - package-ecosystem: "pip"
     directory: "/"
     schedule:
       interval: "daily"
-      time: "22:49"
+      time: "22:55"
       timezone: "America/Guayaquil"
