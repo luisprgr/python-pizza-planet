@@ -1,16 +1,15 @@
 version: 2
 updates:
-
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
       interval: "daily"
-      time: "22:55"
+      time: "09:00"
       timezone: "America/Guayaquil"
 
   - package-ecosystem: "pip"
     directory: "/"
     schedule:
       interval: "daily"
-      time: "22:55"
+      time: "09:00"
       timezone: "America/Guayaquil"
