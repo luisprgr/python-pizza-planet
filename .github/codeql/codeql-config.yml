@@ -1,5 +1,9 @@
 name: "Running CodeQL just for the code"
 
+languages: "python"
+
+setup-python-dependencies: false
+
 paths:
   - app
 
