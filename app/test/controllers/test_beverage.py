@@ -19,13 +19,12 @@ def test_update(app, beverage: dict):
     )
     pytest.assume(error is None)
     beverages_from_db, error = BeverageController.get_by_id(
-        created_beverage['_id'] 
+        created_beverage['_id']
     )
     pytest.assume(error is None)
     for param, value in updated_fields.items():
         pytest.assume(updated_beverage[param] == value)
         pytest.assume(beverages_from_db[param] == value)
-
 
 
 def test_get_by_id(app, beverage: dict):
