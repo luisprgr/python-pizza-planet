@@ -71,6 +71,13 @@ jobs:
     steps:
       - name: Checkout to my branch
         uses: actions/checkout@v3
+
+      - name: Restoring venv cache
+        id: venv-cache
+        uses: actions/cache@v3
+        with:
+          path : venv
+          key: CI-Pizza-Planet-Ubuntu-22.04-${{hashFiles('requirements.txt')}}
       
       - name: Generate coverage report
         run: source venv/bin/activate && pytest --cov-config=.coveragerc --cov=app app/test/
