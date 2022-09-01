@@ -4,4 +4,4 @@ paths:
   - app
 
 paths-ignore:
-  - venv
+  - venv/lib
