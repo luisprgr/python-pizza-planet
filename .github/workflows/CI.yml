@@ -83,15 +83,7 @@ jobs:
         run: source venv/bin/activate && pytest --cov-config=.coveragerc --cov=app app/test/
 
       - name: Create coverage comment
-        id: Pizza-Planet-Coverage-Comment
         uses: ewjoachim/python-coverage-comment-action@v3
         with:
           GITHUB_TOKEN: ${{ github.token }}
-
-      - name: Store coverage comment
-        uses: actions/upload-artifact@v3
-        if: steps.Pizza-Planet-Coverage-Comment.outputs.COMMENT_FILE_WRITTEN == 'true'
-        with:
-          name: coverage-comment
-          path: python-coverage-comment-action.txt
-          
+          MINIMUM_GREEN: 90
