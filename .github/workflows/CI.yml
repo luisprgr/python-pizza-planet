@@ -64,3 +64,13 @@ jobs:
       
       - name: Run tests
         run: source venv/bin/activate && pytest -v app/test/
+
+  Test-coverage-report:
+    runs-on: ubuntu-22.04
+    needs: [Linters, Test]
+    steps:
+      - name: Checkout to my branch
+        uses: actions/checkout@v3
+      
+      - name: Generate coverage report
+        run: source venv/bin/activate && pytest --cov-config=.coveragerc --cov=app app/test/
