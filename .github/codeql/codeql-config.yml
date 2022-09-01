@@ -4,4 +4,7 @@ paths:
   - app
 
 paths-ignore:
-  - venv/lib
+  - app/repositories
+  - app/services
+  - app/test
+  - app/controllers
