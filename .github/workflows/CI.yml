@@ -4,6 +4,9 @@ on:
   pull_request:
     branches:
       - main
+  push:
+    branches:
+      - main
 
 concurrency: 
   group: CI-Pizza-Planet-${{github.ref}}
@@ -87,3 +90,28 @@ jobs:
         with:
           GITHUB_TOKEN: ${{ github.token }}
           MINIMUM_GREEN: 90
+          
+  CodeQL-Analysis:
+    runs-on: ubuntu-22.04
+    needs: [Linters, Test]
+    permissions:
+      actions: read
+      contents: read
+      security-events: write
+
+    steps:
+    - name: Checkout to my branch
+      uses: actions/checkout@v3
+
+    - name: Installing requirements
+      run: pip install -r requirements.txt
+
+    - name: Initialize CodeQL
+      uses: github/codeql-action/init@v2
+      with:
+        languages: "python"
+        setup-python-dependencies: false
+        queries: security-extended,security-and-quality
+    
+    - name: Perform CodeQL Analysis
+      uses: github/codeql-action/analyze@v2
