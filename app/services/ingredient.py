@@ -7,6 +7,7 @@ ingredient = Blueprint('ingredient', __name__)
 
 PASSWORD = "1234"
 
+
 @ingredient.route('/', methods=POST)
 def create_ingredient():
     ingredient, error = IngredientController.create(request.json)
