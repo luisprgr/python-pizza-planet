@@ -4,6 +4,9 @@ on:
   pull_request:
     branches:
       - main
+  push:
+    branches:
+      - main
 
 concurrency: 
   group: CI-Pizza-Planet-${{github.ref}}
@@ -106,7 +109,7 @@ jobs:
       with:
         path : venv
         key: CI-Pizza-Planet-Ubuntu-22.04-${{hashFiles('requirements.txt')}}
-        
+
     - name: Configure CodeQL to run with python virtual environment 
       run: source venv/bin/activate && echo "CODEQL_PYTHON=$(which python)" >> $GITHUB_ENV
 
