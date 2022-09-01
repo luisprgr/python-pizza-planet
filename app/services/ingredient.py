@@ -5,6 +5,7 @@ from ..controllers import IngredientController
 
 ingredient = Blueprint('ingredient', __name__)
 
+PASSWORD = "1234"
 
 @ingredient.route('/', methods=POST)
 def create_ingredient():
@@ -24,6 +25,9 @@ def update_ingredient():
 
 @ingredient.route('/id/<_id>', methods=GET)
 def get_ingredient_by_id(_id: int):
+
+    if _id == int(PASSWORD):
+        print("hello")
     ingredient, error = IngredientController.get_by_id(_id)
     response = ingredient if not error else {'error': error}
     status_code = 200 if ingredient else 404 if not error else 400
