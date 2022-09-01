@@ -103,15 +103,7 @@ jobs:
     - name: Checkout to my branch
       uses: actions/checkout@v3
 
-    - name: Setup Python and caching dependencies
-      uses: actions/setup-python@v4
-      id: setup-python
-      with:
-        python-version: '3.10'
-        cache: 'pip'
-
     - name: Installing requirements
-      if: steps.setup-python.outputs.cache-hit != true
       run: pip install -r requirements.txt
 
     - name: Initialize CodeQL
