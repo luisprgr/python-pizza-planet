@@ -2,8 +2,6 @@ from datetime import datetime
 
 from app.plugins import db
 
-# TODO: save size price in order
-
 
 class Order(db.Model):
     _id = db.Column(db.Integer, primary_key=True)

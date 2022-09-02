@@ -2,6 +2,8 @@ import pytest
 from flask.cli import FlaskGroup
 from flask_migrate import Migrate
 
+import seeder
+
 from app import flask_app
 from app.plugins import db
 
@@ -18,6 +20,11 @@ migrate.init_app(flask_app, db)
 @manager.command('test', with_appcontext=False)
 def test():
     return pytest.main(['-v', './app/test'])
+
+
+@manager.command('seeder')
+def seed():
+    seeder.execute_seeder()
 
 
 if __name__ == '__main__':
