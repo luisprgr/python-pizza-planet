@@ -288,7 +288,7 @@ def get_random_item(items: list):
 
 @pass_by_value
 def get_random_items(items: list):
-    return random.choices(items, k=random.randint(1, len(items)))
+    return random.sample(items, random.randint(1, len(items)))
 
 
 @pass_by_value
@@ -312,15 +312,17 @@ def seed_order_table():
 
     for _ in range(MAX_ORDERS):
         size = get_random_item(sizes)
-        ingredients_detail = get_random_items(ingredients)
-        beverages_detail = get_random_items(beverages)
-        total_price = get_total_price(size, ingredients_detail, beverages_detail)
+        order_ingredients = get_random_items(ingredients)
+        order_beverages = get_random_items(beverages)
+        total_price = get_total_price(size, order_ingredients, order_beverages)
         order_data = get_random_item(clients) | {
             "date": get_random_item(dates),
             "size_id": size["_id"],
             "total_price": total_price,
         }
-        OrderManager.create(order_data, ingredients_detail, beverages_detail)
+        ingredients_list = IngredientManager.get_by_id_list([ ingredient["_id"] for ingredient in order_ingredients ])
+        beverages_list = BeverageManager.get_by_id_list([ beverage["_id"] for beverage in order_beverages ])
+        OrderManager.create(order_data, ingredients_list, beverages_list)
 
 
 def execute_seeder():
