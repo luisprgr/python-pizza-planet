@@ -8,10 +8,6 @@ from app.repositories.managers import (
 )
 from faker import Faker
 
-# - At least 100 orders with different customers
-# - A customer should have multiple orders
-# - the data should be created for multiple months
-
 MAX_LEFT_DIGITS = 2
 MAX_RIGHT_DIGITS = 2
 MAX_ORDERS = 100
@@ -240,10 +236,25 @@ beverages = [
 ]
 
 
+def generate_dni():
+    dni = (
+        list(map(int, f"{random.randint(1, 24):02d}"))
+        + [random.randint(0, 6)]
+        + [random.randint(0, 9) for _ in range(6)]
+    )
+    verification_list = [dni[i] * [2, 1][i % 2] for i in range(9)]
+    verification_list_corrected = map(
+        lambda x: x if x < 10 else x - 9, verification_list
+    )
+    verification_number = (sum(verification_list_corrected) * 9) % 10
+    dni.append(verification_number)
+    return ''.join(map(str, dni))
+
+
 def generate_client():
     return {
         "client_address": fake.address(),
-        "client_dni": fake.ssn(),
+        "client_dni": generate_dni(),
         "client_name": fake.name(),
         "client_phone": fake.phone_number(),
     }
@@ -306,7 +317,9 @@ def seed_order_table():
     (sizes, ingredients, beverages) = get_sizes_ingredients_beverages()
     clients = [generate_client() for _ in range(NUMBER_OF_CLIENTS)]
     dates = [
-        fake.date_time_between(start_date=MIN_DATE, end_date=MAX_DATE, tzinfo=None)
+        fake.date_time_between(
+            start_date=MIN_DATE, end_date=MAX_DATE, tzinfo=None
+        )
         for _ in range(NUMBER_OF_DATES)
     ]
 
@@ -320,8 +333,12 @@ def seed_order_table():
             "size_id": size["_id"],
             "total_price": total_price,
         }
-        ingredients_list = IngredientManager.get_by_id_list([ ingredient["_id"] for ingredient in order_ingredients ])
-        beverages_list = BeverageManager.get_by_id_list([ beverage["_id"] for beverage in order_beverages ])
+        ingredients_list = IngredientManager.get_by_id_list(
+            [ingredient["_id"] for ingredient in order_ingredients]
+        )
+        beverages_list = BeverageManager.get_by_id_list(
+            [beverage["_id"] for beverage in order_beverages]
+        )
         OrderManager.create(order_data, ingredients_list, beverages_list)
 
 

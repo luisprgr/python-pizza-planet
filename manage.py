@@ -21,6 +21,7 @@ migrate.init_app(flask_app, db)
 def test():
     return pytest.main(['-v', './app/test'])
 
+
 @manager.command('seeder')
 def seed():
     seeder.execute_seeder()
