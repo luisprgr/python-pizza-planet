@@ -2,6 +2,8 @@ from typing import Any, List, Optional, Sequence
 
 from sqlalchemy.sql import text, column
 
+from sqlalchemy import func
+
 from .models import Ingredient, Order, OrderDetail, Size, db, Beverage
 from .serializers import (
     IngredientSerializer,
@@ -56,10 +58,7 @@ class IngredientManager(BaseManager):
     @classmethod
     def get_by_id_list(cls, ids: Sequence):
         return (
-            cls.session.query(cls.model)
-            .filter(cls.model._id.in_(set(ids)))
-            .all()
-            or []
+            cls.session.query(cls.model).filter(cls.model._id.in_(set(ids))).all() or []
         )
 
 
@@ -121,10 +120,7 @@ class BeverageManager(BaseManager):
     @classmethod
     def get_by_id_list(cls, ids: Sequence):
         return (
-            cls.session.query(cls.model)
-            .filter(cls.model._id.in_(set(ids)))
-            .all()
-            or []
+            cls.session.query(cls.model).filter(cls.model._id.in_(set(ids))).all() or []
         )
 
 
@@ -133,4 +129,12 @@ class ReportManager:
 
     @classmethod
     def get_most_requested_ingredient(cls):
-        pass
+        cls.session.query(
+            OrderDetail.ingredient_id, func.count(OrderDetail.ingredient_id)
+        ).group_by(OrderDetail.ingredient_id).order_by(
+            func.count(OrderDetail.ingredient_id).desc()
+        ).first()
+
+    @classmethod
+    def get_report(cls):
+        return cls.get_most_requested_ingredient()

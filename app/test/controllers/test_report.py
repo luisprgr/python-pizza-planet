@@ -9,6 +9,7 @@ def test_create(
 ):
 
     report = ReportController.get_report()
+    a = 1 #to set a breakpoint
     pytest.assume(report['most_requested_ingredient'])
     pytest.assume(report['most_requested_beverage'])
     pytest.assume(report['month_with_more_revenue'])

@@ -7,4 +7,4 @@ class ReportController:
 
     @classmethod
     def get_report(cls):
-        pass
+        return cls.manager.get_report()
