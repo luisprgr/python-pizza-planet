@@ -1,12 +1,6 @@
-from functools import reduce
-import operator
 import pytest
 from app.controllers import (
     ReportController,
-    IngredientController,
-    BeverageController,
-    SizeController,
-    OrderController,
 )
 
 def test_create(app, reports_sizes, reports_ingredients, reports_beverages, reports_orders):

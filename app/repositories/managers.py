@@ -126,3 +126,11 @@ class BeverageManager(BaseManager):
             .all()
             or []
         )
+
+class ReportManager:
+    session = db.session
+
+    @classmethod
+    def get_most_requested_ingredient(cls):
+        pass
+    
