@@ -365,17 +365,14 @@ __orders = [
 
 __ingredients = [
   {
-    "_id": 1,
     "name": "Jalapeño",
     "price": 3.16
   },
   {
-    "_id": 2,
     "name": "Green Peppers",
     "price": 4.5
   },
   {
-    "_id": 3,
     "name": "Tomato",
     "price": 2.67
   }
@@ -383,17 +380,14 @@ __ingredients = [
 
 __beverages = [
   {
-    "_id": 1,
     "name": "Coca Cola",
     "price": 2.34
   },
   {
-    "_id": 2,
     "name": "Fanta",
     "price": 2.28
   },
   {
-    "_id": 3,
     "name": "Sprite",
     "price": 0.45
   }
@@ -401,17 +395,14 @@ __beverages = [
 
 __sizes = [
   {
-    "_id": 1,
     "name": "personal",
     "price": 2.67
   },
   {
-    "_id": 2,
     "name": "medium",
     "price": 5.86
   },
   {
-    "_id": 3,
     "name": "familiar",
     "price": 10.69
   }
