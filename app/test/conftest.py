@@ -18,6 +18,8 @@ from .fixtures.ingredient import *
 from .fixtures.order import *
 from .fixtures.size import *
 from .fixtures.beverage import *
+from .fixtures.reports_data import * 
+from .fixtures.reports import *
 
 
 @pytest.fixture
