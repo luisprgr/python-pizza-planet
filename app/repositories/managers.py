@@ -129,9 +129,9 @@ class ReportManager:
 
     @classmethod
     def get_most_requested_ingredient(cls):
-        cls.session.query(
-            OrderDetail.ingredient_id, func.count(OrderDetail.ingredient_id)
-        ).group_by(OrderDetail.ingredient_id).order_by(
+        return cls.session.query(
+            Ingredient, func.count(OrderDetail.ingredient_id)
+        ).join(OrderDetail).group_by(Ingredient).order_by(
             func.count(OrderDetail.ingredient_id).desc()
         ).first()
 
