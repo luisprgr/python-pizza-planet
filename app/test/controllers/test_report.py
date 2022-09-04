@@ -8,7 +8,7 @@ def test_create(
     app, reports_sizes, reports_ingredients, reports_beverages, reports_orders
 ):
 
-    report = ReportController.get_report()
+    report, _ = ReportController.get_report()
 
     pytest.assume(report['most_requested_ingredient'])
     pytest.assume(report['most_requested_beverage'])
