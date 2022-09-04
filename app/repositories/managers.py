@@ -136,5 +136,13 @@ class ReportManager:
         ).first()
 
     @classmethod
+    def get_most_requested_beverage(cls):
+        return cls.session.query(
+            Beverage, func.count(OrderDetail.beverage_id)
+        ).join(OrderDetail).group_by(Beverage).order_by(
+            func.count(OrderDetail.beverage_id).desc()
+        ).first()
+
+    @classmethod
     def get_report(cls):
         return cls.get_most_requested_ingredient()
