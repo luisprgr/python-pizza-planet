@@ -58,7 +58,10 @@ class IngredientManager(BaseManager):
     @classmethod
     def get_by_id_list(cls, ids: Sequence):
         return (
-            cls.session.query(cls.model).filter(cls.model._id.in_(set(ids))).all() or []
+            cls.session.query(cls.model)
+            .filter(cls.model._id.in_(set(ids)))
+            .all()
+            or []
         )
 
 
@@ -120,7 +123,10 @@ class BeverageManager(BaseManager):
     @classmethod
     def get_by_id_list(cls, ids: Sequence):
         return (
-            cls.session.query(cls.model).filter(cls.model._id.in_(set(ids))).all() or []
+            cls.session.query(cls.model)
+            .filter(cls.model._id.in_(set(ids)))
+            .all()
+            or []
         )
 
 
@@ -129,31 +135,44 @@ class ReportManager:
 
     @classmethod
     def get_most_requested_ingredient(cls):
-        return cls.session.query(
-            Ingredient, func.count(OrderDetail.ingredient_id)
-        ).join(OrderDetail).group_by(Ingredient).order_by(
-            func.count(OrderDetail.ingredient_id).desc()
-        ).first()
+        return (
+            cls.session.query(
+                Ingredient, func.count(OrderDetail.ingredient_id)
+            )
+            .join(OrderDetail)
+            .group_by(Ingredient)
+            .order_by(func.count(OrderDetail.ingredient_id).desc())
+            .first()
+        )
 
     @classmethod
     def get_most_requested_beverage(cls):
-        return cls.session.query(
-            Beverage, func.count(OrderDetail.beverage_id)
-        ).join(OrderDetail).group_by(Beverage).order_by(
-            func.count(OrderDetail.beverage_id).desc()
-        ).first()
+        return (
+            cls.session.query(Beverage, func.count(OrderDetail.beverage_id))
+            .join(OrderDetail)
+            .group_by(Beverage)
+            .order_by(func.count(OrderDetail.beverage_id).desc())
+            .first()
+        )
 
     @classmethod
     def get_month_with_more_revenue(cls):
-        return cls.session.query(Order.date, func.sum(Order.total_price)
-        ).group_by(Order.date).order_by(func.sum(Order.total_price).desc()
-        ).first()
+        return (
+            cls.session.query(Order.date, func.sum(Order.total_price))
+            .group_by(Order.date)
+            .order_by(func.sum(Order.total_price).desc())
+            .first()
+        )
 
     @classmethod
     def get_top_three_customers(cls):
-        return cls.session.query(Order, func.sum(Order.total_price)
-        ).group_by(Order.client_dni).order_by(func.sum(Order.total_price).desc()
-        ).limit(3).all()
+        return (
+            cls.session.query(Order, func.sum(Order.total_price))
+            .group_by(Order.client_dni)
+            .order_by(func.sum(Order.total_price).desc())
+            .limit(3)
+            .all() or []
+        )
 
     @classmethod
     def get_report(cls):
