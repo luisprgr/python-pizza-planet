@@ -2,6 +2,10 @@ from typing import Any, List, Optional, Sequence
 
 from sqlalchemy.sql import text, column
 
+from sqlalchemy import func
+
+from numpy import round as round_n
+
 from .models import Ingredient, Order, OrderDetail, Size, db, Beverage
 from .serializers import (
     IngredientSerializer,
@@ -126,3 +130,81 @@ class BeverageManager(BaseManager):
             .all()
             or []
         )
+
+
+class ReportManager:
+    session = db.session
+
+    @classmethod
+    def get_most_requested_ingredient(cls):
+        return (
+            cls.session.query(
+                Ingredient, func.count(OrderDetail.ingredient_id)
+            )
+            .join(OrderDetail)
+            .group_by(Ingredient)
+            .order_by(func.count(OrderDetail.ingredient_id).desc())
+            .first()
+        )
+
+    @classmethod
+    def get_most_requested_beverage(cls):
+        return (
+            cls.session.query(Beverage, func.count(OrderDetail.beverage_id))
+            .join(OrderDetail)
+            .group_by(Beverage)
+            .order_by(func.count(OrderDetail.beverage_id).desc())
+            .first()
+        )
+
+    @classmethod
+    def get_month_with_more_revenue(cls):
+        return (
+            cls.session.query(Order.date, func.sum(Order.total_price))
+            .group_by(Order.date)
+            .order_by(func.sum(Order.total_price).desc())
+            .first()
+        )
+
+    @classmethod
+    def get_top_three_customers(cls):
+        return (
+            cls.session.query(Order, func.sum(Order.total_price))
+            .group_by(Order.client_dni)
+            .order_by(func.sum(Order.total_price).desc())
+            .limit(3)
+            .all()
+            or []
+        )
+
+    @classmethod
+    def get_report(cls):
+        most_requested_ingredient = cls.get_most_requested_ingredient()
+        most_requested_beverage = cls.get_most_requested_beverage()
+        month_with_more_revenue = cls.get_month_with_more_revenue()
+        top_three_customers = cls.get_top_three_customers()
+
+        return {
+            "most_requested_ingredient": {
+                "name": most_requested_ingredient[0].name,
+                "times_requested": most_requested_ingredient[1],
+            },
+            "most_requested_beverage": {
+                "name": most_requested_beverage[0].name,
+                "times_requested": most_requested_beverage[1],
+            },
+            "month_with_more_revenue": {
+                "name": month_with_more_revenue[0].strftime("%B"),
+                "total_revenue": round_n(month_with_more_revenue[1], 2),
+            },
+            "top_3_customers": [
+                {
+                    "dni": customer[0].client_dni,
+                    "name": customer[0].client_name,
+                    "address": customer[0].client_address,
+                    "phone": customer[0].client_phone,
+                    "spent": round_n(customer[1], 2),
+                }
+                for customer in top_three_customers
+            ],
+        }

@@ -24,6 +24,7 @@ marshmallow==3.14.1
 marshmallow-sqlalchemy==0.27.0
 mccabe==0.6.1
 mypy-extensions==0.4.3
+numpy==1.23.2
 packaging==21.3
 pathspec==0.9.0
 platformdirs==2.5.2
