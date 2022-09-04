@@ -23,7 +23,8 @@ def test_create(
     pytest.assume(report['most_requested_beverage']['name'] == 'Sprite')
     pytest.assume(report['most_requested_beverage']['times_requested'] == 4)
 
-    pytest.assume(report['month_with_more_revenue'] == 'March')
+    pytest.assume(report['month_with_more_revenue']['name'] == 'March')
+    pytest.assume(report['month_with_more_revenue']['total_revenue'] == 67.79)
 
     pytest.assume(report['top_3_customers'][0]['dni'] == '01234567891')
     pytest.assume(
