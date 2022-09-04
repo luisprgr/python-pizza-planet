@@ -142,7 +142,7 @@ class ReportManager:
         ).join(OrderDetail).group_by(Beverage).order_by(
             func.count(OrderDetail.beverage_id).desc()
         ).first()
-        
+
     @classmethod
     def get_month_with_more_revenue(cls):
         return cls.session.query(Order.date, func.sum(Order.total_price)
@@ -150,5 +150,11 @@ class ReportManager:
         ).first()
 
     @classmethod
+    def get_top_three_customers(cls):
+        return cls.session.query(Order, func.sum(Order.total_price)
+        ).group_by(Order.client_dni).order_by(func.sum(Order.total_price).desc()
+        ).limit(3).all()
+
+    @classmethod
     def get_report(cls):
-        return cls.get_month_with_more_revenue()
+        return cls.get_top_three_customers()
