@@ -9,7 +9,7 @@ def test_create(
 ):
 
     report = ReportController.get_report()
-    a = 1  # to set
+    
     pytest.assume(report['most_requested_ingredient'])
     pytest.assume(report['most_requested_beverage'])
     pytest.assume(report['month_with_more_revenue'])
@@ -24,7 +24,7 @@ def test_create(
     pytest.assume(report['most_requested_beverage']['times_requested'] == 4)
 
     pytest.assume(report['month_with_more_revenue']['name'] == 'March')
-    pytest.assume(report['month_with_more_revenue']['total_revenue'] == 67.79)
+    pytest.assume(report['month_with_more_revenue']['total_revenue'] == 67.76)
 
     pytest.assume(report['top_3_customers'][0]['dni'] == '01234567891')
     pytest.assume(
