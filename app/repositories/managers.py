@@ -195,7 +195,7 @@ class ReportManager:
             },
             "month_with_more_revenue": {
                 "name": month_with_more_revenue[0].strftime("%B"),
-                "total_revenue": round_n( month_with_more_revenue[1], 2),
+                "total_revenue": round_n(month_with_more_revenue[1], 2),
             },
             "top_3_customers": [
                 {
