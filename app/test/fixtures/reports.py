@@ -12,6 +12,7 @@ def __search_id_by_name(name, items):
     for item in items:
         if item.get('name') == name:
             return item.get('_id')
+    return None
 
 
 @pytest.fixture
