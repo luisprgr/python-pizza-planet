@@ -7,4 +7,7 @@ class ReportController:
 
     @classmethod
     def get_report(cls):
-        return cls.manager.get_report()
+        try:
+            return cls.manager.get_report(), None
+        except (SQLAlchemyError, RuntimeError) as ex:
+            return None, str(ex)
