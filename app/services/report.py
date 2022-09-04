@@ -1,5 +1,4 @@
-import re
-from app.common.http_methods import GET, POST, PUT
+from app.common.http_methods import GET
 from flask import Blueprint, jsonify
 
 from ..controllers import ReportController
