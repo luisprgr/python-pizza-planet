@@ -24,7 +24,7 @@ def test_create(
     pytest.assume(report['most_requested_beverage']['times_requested'] == 4)
 
     pytest.assume(report['month_with_more_revenue']['name'] == 'March')
-    pytest.assume(report['month_with_more_revenue']['total_revenue'] == 67.76)
+    pytest.assume(report['month_with_more_revenue']['total_revenue'] == 68.15)
 
     pytest.assume(report['top_3_customers'][0]['dni'] == '01234567891')
     pytest.assume(
@@ -32,7 +32,7 @@ def test_create(
     )
     pytest.assume(report['top_3_customers'][0]['address'] == 'fake address')
     pytest.assume(report['top_3_customers'][0]['phone'] == '123456789')
-    pytest.assume(report['top_3_customers'][0]['spent'] == 70.07)
+    pytest.assume(report['top_3_customers'][0]['spent'] == 70.46)
 
     pytest.assume(report['top_3_customers'][1]['dni'] == '01234567893')
     pytest.assume(report['top_3_customers'][1]['name'] == 'Kelly Cook')

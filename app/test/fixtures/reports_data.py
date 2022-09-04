@@ -244,8 +244,8 @@ __orders = [
             {
                 "_id": 19,
                 "beverage": None,
-                "ingredient": {"_id": 3, "name": "Tomato", "price": 2.67},
-                "total_detail_price": 2.67,
+                "ingredient": {"_id": 3, "name": "Jalapeño", "price": 3.16},
+                "total_detail_price": 3.16,
             },
             {
                 "_id": 20,
@@ -255,7 +255,7 @@ __orders = [
             },
         ],
         "size": {"_id": 3, "name": "familiar", "price": 10.69},
-        "total_price": 15.63,
+        "total_price": 16.02,
     },
 ]
 
