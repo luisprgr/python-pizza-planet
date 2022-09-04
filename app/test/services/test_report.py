@@ -1,6 +1,4 @@
-from urllib import response
 import pytest
-from app.controllers import ReportController
 
 
 def test_get_report(
