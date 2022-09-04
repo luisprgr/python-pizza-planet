@@ -67,3 +67,38 @@ def reports_orders(
             )
         )
     return orders
+
+
+@pytest.fixture
+def report_values():
+    return {
+        "most_requested_ingredient": {
+            "name": "Green Peppers",
+            "times_requested": 4,
+        },
+        "most_requested_beverage": {"name": "Sprite", "times_requested": 4},
+        "month_with_more_revenue": {"name": "March", "total_revenue": 68.15},
+        "top_3_customers": [
+            {
+                "dni": "01234567891",
+                "name": "Christopher Sandoval",
+                "address": "fake address",
+                "phone": "123456789",
+                "spent": 70.46,
+            },
+            {
+                "dni": "01234567893",
+                "name": "Kelly Cook",
+                "address": "fake address",
+                "phone": "123456789",
+                "spent": 17.08,
+            },
+            {
+                "dni": "01234567892",
+                "name": "Teresa Nelson",
+                "address": "fake address",
+                "phone": "123456789",
+                "spent": 14.29,
+            },
+        ],
+    }
