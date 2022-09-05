@@ -15,7 +15,7 @@ This is an example software for a pizzeria that takes customizable orders.
 
 You will need the following general tools:
 
-- A Python interpreter installed. [3.8.x](https://www.python.org/downloads/release/python-3810/) is preffered.
+- A Python interpreter installed. [3.9.13](https://www.python.org/downloads/release/python-3913/) is preffered.
 
 - A text editor: preferably [Visual Studio Code](https://code.visualstudio.com/download)
 
@@ -26,13 +26,13 @@ You will need the following general tools:
 - Clone the repo
 
 ```bash
-git clone https://github.com/ioet/python-pizza-planet.git
+git clone https://github.com/luisprgr/python-pizza-planet.git
 ```
 
 - Create a virtual environment in the root folder of the project
 
 ```bash
-python3 -m venv venv
+make create-venv
 ```
 
 - Activate the virtual environment (In vscode if you select the virtual env for your project it will activate once you open a new console window)
@@ -52,35 +52,32 @@ _For windows users:_
 - Install all necessary dependencies:
 
 ```bash
-pip3 install -r requirements.txt
+make install-requirements
 ```
+
 
 - Start the database (Only needed for the first run):
 
 ```bash
-python3 manage.py db init
-python3 manage.py db migrate
-python3 manage.py db upgrade
+make start-database
 ```
 
-- If you want to use the hot reload feature set FLASK_ENV before running the project:
-
-_For linux/MacOS users:_
+- Seed the database (Only needed for the first run):
 
 ```bash
-export FLASK_ENV=development 
-```
-
-_For windows users:_
-
-```CMD
-set FLASK_ENV=development
+make seed-database
 ```
 
 - Run the project with:
 
 ```bash
-python3 manage.py run
+make start-server
+```
+
+- Run the project with hot reload:
+
+```bash
+make start-hot-reload
 ```
 
 ## Running the frontend
@@ -105,10 +102,38 @@ ext install ritwickdey.LiveServer
 
 ### Testing the backend
 
-- Make sure that you have `pytest` installed
-
 - Run the test command
 
 ```bash
-python3 manage.py test
+make run-tests
 ```
+
+- Run the test command with coverage report
+
+```bash
+make test-coverage-report
+```
+
+### Check backend for linting errors
+
+- Run the linters command
+
+```bash
+make run-linters
+```
+
+- if you want to reformat the code using black run:
+    
+```bash
+make format-code
+```
+
+### Other commands
+
+- In case that you need to delete the database:
+
+```bash
+make delete-database
+``` 
+
+
