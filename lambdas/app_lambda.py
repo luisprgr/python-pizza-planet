@@ -1,4 +1,3 @@
-from flask import Flask
 from flask_lambda import FlaskLambda
 from app import register_blueprints, register_plugins, cors_app
 
