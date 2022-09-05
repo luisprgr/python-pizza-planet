@@ -26,7 +26,7 @@ run-tests:
 	. venv/bin/activate && python3 manage.py test
 
 test-coverage-report:
-	. venv/bin/activate && pytest --cov=app app/test/ 
+	. venv/bin/activate && pytest --cov-config=.coveragerc --cov=app app/test/ 
 
 run-linters:
 	. venv/bin/activate && flake8 app/ manage.py seeder.py
