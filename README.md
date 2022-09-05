@@ -136,4 +136,33 @@ make format-code
 make delete-database
 ``` 
 
+### Deploy in local:
 
+- you will need to have:
+    - python 3.9.13 installed
+    - your aws credentials configured
+    - docker installed with rootless mode
+
+- install sam cli:
+
+```bash
+pip install aws-sam-cli
+```
+
+- build the lambda function:
+
+```bash
+sam build
+```
+
+- (to test the lambda function locally) run the lambda function:
+
+```bash
+sam local start-api
+```
+
+- deploy the lambda function:
+
+```bash
+sam deploy --guided
+```
