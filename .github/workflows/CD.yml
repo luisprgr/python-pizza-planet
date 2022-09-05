@@ -3,7 +3,7 @@ name: Pizza Planet CD
 on:
   push:
     branches:
-      - PIZ38-add_continuous_deployment_action
+      - main
 jobs:
   deploy:
     runs-on: ubuntu-22.04
