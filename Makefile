@@ -23,7 +23,7 @@ start-hot-reload:
 	. venv/bin/activate && python3 manage.py hot-reload
 
 run-tests:
-	. venv/bin/activate && python3 manage.py test
+	. venv/bin/activate && pytest -v app/test/
 
 test-coverage-report:
 	. venv/bin/activate && pytest --cov-config=.coveragerc --cov=app app/test/ 
