@@ -22,7 +22,7 @@ start-server:
 start-hot-reload:
 	. venv/bin/activate && python3 manage.py hot-reload
 
-run-test:
+run-tests:
 	. venv/bin/activate && python3 manage.py test
 
 test-coverage-report:
@@ -30,3 +30,6 @@ test-coverage-report:
 
 run-linters:
 	. venv/bin/activate && flake8 app/ manage.py seeder.py
+
+format-code:
+	. venv/bin/activate && black app/ manage.py seeder.py --skip-string-normalization --line-length 79
