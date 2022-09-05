@@ -49,7 +49,7 @@ jobs:
         run: sam build
       
       - name: add sam config file
-        run: echo $SAM_CONFIG_FILE > samconfig.toml
+        run: echo ${SAM_CONFIG_FILE} > samconfig.toml
 
       - name: deploy app
         run: sam deploy
