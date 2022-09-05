@@ -150,3 +150,11 @@ migrations/
 pizza.sqlite
 .vscode/launch.json
 .vscode/tasks.json
+
+# Sam specific
+.aws-sam/
+samconfig.toml
+
+# pyenv specific
+.python-version
+

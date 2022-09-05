@@ -1,0 +1,62 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Transform: AWS::Serverless-2016-10-31
+Description: >
+  pizza-planet-backend-zip
+
+  Pizza Planet Backend
+
+Globals:
+  Function:
+    Timeout: 5
+    Runtime: python3.9
+    Architectures:
+      - x86_64
+
+Resources:
+  AppLayer:
+    Type: AWS::Serverless::LayerVersion
+    Properties:
+      ContentUri: app/
+      CompatibleRuntimes:
+        - python3.9
+    Metadata:
+      BuildMethod: makefile
+
+  DatabaseLayer:
+    Type: AWS::Serverless::LayerVersion
+    Properties:
+      ContentUri: databaseLayer/
+      CompatibleRuntimes:
+        - python3.9
+
+  AppLambda:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: lambdas/
+      Handler: app_lambda.app_lambda
+      Events:
+        AppLambdaEvent:
+          Type: Api
+          Properties:
+            Path: /{proxy+}
+            Method: ANY
+      Layers:
+        - !Ref AppLayer
+        - !Ref DatabaseLayer
+
+Outputs:
+  ReportsURL:
+    Description: "API endpoint URL for our report endpoint"
+    Value: !Sub "https://pizza-planet-api.luisprgr.com/report/"
+  OrderURL:
+    Description: "API endpoint URL for our order endpoint"
+    Value: !Sub "https://pizza-planet-api.luisprgr.com/order/"
+  SizeURL:
+    Description: "API endpoint URL for our size endpoint"
+    Value: !Sub "https://pizza-planet-api.luisprgr.com/size/"
+  IngredientURL:
+    Description: "API endpoint URL for our ingredient endpoint"
+    Value: !Sub "https://pizza-planet-api.luisprgr.com/ingredient/"
+  BeverageURL:
+    Description: "API endpoint URL for our beverage endpoint"
+    Value: !Sub "https://pizza-planet-api.luisprgr.com/beverage/"
