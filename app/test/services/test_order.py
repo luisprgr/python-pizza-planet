@@ -5,7 +5,7 @@ def test_create_order_service(create_orders):
     created_order = create_orders[0]
     order = created_order.json
     pytest.assume(created_order.status.startswith('200'))
-    pytest.assume(order['_id'])
+    pytest.assume(order['id'])
     pytest.assume(order['client_address'])
     pytest.assume(order['client_dni'])
     pytest.assume(order['client_name'])
