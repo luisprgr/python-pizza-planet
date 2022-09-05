@@ -1,0 +1,53 @@
+name: Pizza Planet CD
+
+on:
+  push:
+    branches:
+      - PIZ38-add_continuous_deployment_action
+jobs:
+  deploy:
+    runs-on: ubuntu-22.04
+
+    env:
+      AWS_ACCESS_KEY_ID: ${{secrets.AWS_ACCESS_KEY_ID}}
+      AWS_SECRET_ACCESS_KEY: ${{secrets.AWS_SECRET_ACCESS_KEY}}
+      SAM_CONFIG_FILE: ${{secrets.SAM_CONFIG_FILE}}
+
+    steps:
+      - name: Checkout to my branch
+        uses: actions/checkout@v3
+
+      - name: Set up Python 3.9.13
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.9.13"
+
+      - name: Install requirements
+        run: pip install -r requirements.txt
+
+      - name: Install sam 
+        run: pip install aws-sam-cli
+     
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ env.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ env.AWS_SECRET_ACCESS_KEY }}
+
+      - name: create database
+        run: make start-database
+
+      - name: seed database
+        run: make seed-database
+
+      - name: copy database to lambda layer
+        run: cp pizza.sqlite databaseLayer/python/pizza.sqlite
+
+      - name: build app
+        run: sam build
+      
+      - name: add sam config file
+        run: echo $SAM_CONFIG_FILE > samconfig.toml
+
+      - name: deploy app
+        run: sam deploy
