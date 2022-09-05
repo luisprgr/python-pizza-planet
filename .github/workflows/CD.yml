@@ -48,8 +48,8 @@ jobs:
       - name: build app
         run: sam build
       
-      - name: add sam config file
-        run: echo ${SAM_CONFIG_FILE} > samconfig.toml
+      - name: add sam config file base64
+        run: echo -n "${SAM_CONFIG_FILE}" | base64 --decode > samconfig.toml
 
       - name: deploy app
         run: sam deploy
