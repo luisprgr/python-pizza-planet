@@ -1,7 +1,6 @@
-from urllib import response
 from flask import Blueprint, jsonify, request
 from app.controllers.base import BaseController
-
+from app.common.http_methods import GET, POST, PUT
 
 class ServiceBuilder:
     result: Blueprint = None
@@ -41,15 +40,15 @@ class ServiceBuilder:
     def build(cls):
         cls.result = Blueprint(cls.name, cls.import_name)
         cls.result.add_url_rule(
-            '/', methods=['POST'], view_func=cls.build_create_method
+            '/', methods=POST , view_func=cls.build_create_method
         )
         cls.result.add_url_rule(
-            '/<_id>', methods=['PUT'], view_func=cls.build_update_method
+            '/<_id>', methods=PUT, view_func=cls.build_update_method
         )
         cls.result.add_url_rule(
-            '/id/<_id>', methods=['GET'], view_func=cls.build_get_by_id_method
+            '/id/<_id>', methods=GET, view_func=cls.build_get_by_id_method
         )
         cls.result.add_url_rule(
-            '/', methods=['GET'], view_func=cls.build_get_all_method
+            '/', methods=GET, view_func=cls.build_get_all_method
         )
         return cls.result
