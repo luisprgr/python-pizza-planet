@@ -37,10 +37,10 @@ jobs:
           aws-region: ${{ env.AWS_REGION }}
 
       - name: create database
-        run: make start-database
+        run: python3 manage.py db init && python3 manage.py db migrate && python3 manage.py db upgrade
 
       - name: seed database
-        run: make seed-database
+        run: python3 manage.py seeder
 
       - name: copy database to lambda layer
         run: cp pizza.sqlite databaseLayer/python/pizza.sqlite
