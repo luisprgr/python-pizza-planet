@@ -31,7 +31,7 @@ def seed():
 def hot_reload():
     os.environ.pop("FLASK_RUN_FROM_CLI")
     os.environ["FLASK_ENV"] = "development"
-    flask_app.run(debug=True)
+    flask_app.run()
 
 
 if __name__ == '__main__':
