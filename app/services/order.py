@@ -1,15 +1,25 @@
+from app.common.http_methods import GET, POST
+from flask import Blueprint, request
+
 from ..controllers import OrderController
-from .service_builder import ServiceBuilder
+from app.services.service_decorator import service
+
+order = Blueprint('order', __name__)
 
 
-class OrderServiceBuilder(ServiceBuilder):
-    controller = OrderController
-    name = 'order'
-    import_name = __name__
-
-    @classmethod
-    def build_update_method(cls):
-        return None
+@order.route('/', methods=POST)
+@service
+def create_order():
+    return OrderController.create(request.json)
 
 
-order = OrderServiceBuilder.build()
+@order.route('/id/<_id>', methods=GET)
+@service
+def get_order_by_id(_id: int):
+    return OrderController.get_by_id(_id)
+
+
+@order.route('/', methods=GET)
+@service
+def get_orders():
+    return OrderController.get_all()

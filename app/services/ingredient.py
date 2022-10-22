@@ -1,23 +1,31 @@
-from flask import request, jsonify
-from app.common.http_methods import PUT
+from app.common.http_methods import GET, POST, PUT
+from flask import Blueprint, request
+
 from ..controllers import IngredientController
-from .service_builder import ServiceBuilder
+from app.services.service_decorator import service
+
+ingredient = Blueprint('ingredient', __name__)
 
 
-class IngredientServiceBuilder(ServiceBuilder):
-    controller = IngredientController
-    name = 'ingredient'
-    import_name = __name__
-
-    @classmethod
-    def build_update_method(cls):
-        def update_ingredient():
-            ingredient, error = IngredientController.update(request.json)
-            response = ingredient if not error else {'error': error}
-            status_code = 200 if not error else 400
-            return jsonify(response), status_code
-
-        cls.result.add_url_rule('/', view_func=update_ingredient, methods=PUT)
+@ingredient.route('/', methods=POST)
+@service
+def create_ingredient():
+    return IngredientController.create(request.json)
 
 
-ingredient = IngredientServiceBuilder.build()
+@ingredient.route('/', methods=PUT)
+@service
+def update_ingredient():
+    return IngredientController.update(request.json)
+
+
+@ingredient.route('/id/<_id>', methods=GET)
+@service
+def get_ingredient_by_id(_id: int):
+    return IngredientController.get_by_id(_id)
+
+
+@ingredient.route('/', methods=GET)
+@service
+def get_ingredients():
+    return IngredientController.get_all()
