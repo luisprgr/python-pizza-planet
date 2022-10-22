@@ -26,7 +26,7 @@ def update_size(_id: int):
 @service
 def get_size_by_id(_id: int):
     logger.info("get size by id endpoint called")
-    logger.info(f"size id: {_id}")
+    logger.info(f"size id: {str(_id)}")
     return SizeController.get_by_id(_id)
 
 
