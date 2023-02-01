@@ -1,7 +1,7 @@
 alembic==1.7.5
 attrs==21.4.0
 autopep8==1.6.0
-black==22.6.0
+black==23.1.0
 click==8.0.3
 coverage==6.4.4
 Faker==14.2.0
