@@ -42,5 +42,5 @@ six==1.16.0
 SQLAlchemy==1.4.31
 toml==0.10.2
 tomli==2.0.1
-Werkzeug==2.0.2
+Werkzeug==2.2.3
 zipp==3.7.0
