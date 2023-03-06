@@ -39,7 +39,7 @@ pytest-assume==2.4.3
 pytest-cov==3.0.0
 python-dateutil==2.8.2
 six==1.16.0
-SQLAlchemy==1.4.31
+SQLAlchemy==2.0.5.post1
 toml==0.10.2
 tomli==2.0.1
 Werkzeug==2.0.2
